@@ -24,6 +24,7 @@ custom:
   secret:
     slack: ${file(./serverless/secret/slack.yml)}
     map: ${file(./serverless/secret/map.yml)}
+    header: ${file(./serverless/secret/header.yml)}
 
 provider:
   name: aws
