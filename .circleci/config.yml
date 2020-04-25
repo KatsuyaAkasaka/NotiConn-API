@@ -27,6 +27,9 @@ jobs:
       - run:
           name: create-config-map
           command: sh ./serverless/script/map.sh
+      - run:
+          name: create-config-header
+          command: sh ./serverless/script/header.sh
       - persist_to_workspace:
           root: . # workspaceのrootパス（絶対パスかworking_directoryからの相対パス）
           paths:

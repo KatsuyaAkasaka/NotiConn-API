@@ -12,7 +12,20 @@ import 'source-map-support/register';
 import { EventRepository } from '../infra/event';
 import { EventUsecase } from '../usecase/event';
 
+function certificate(header) {
+  return header === process.env.HEADER_TOKEN;
+}
+
 export const getEvents: APIGatewayProxyHandler = async (event, _context) => {
+  if (certificate (event.headers && event.headers.Authorization)) {
+    return {
+      statusCode: 401,
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
+      body: 'user unauthorized'
+    };
+  }
   const req = event.multiValueQueryStringParameters
   const eventRepo = new EventRepository(s3)
   const eventUsecase = new EventUsecase(eventRepo)
